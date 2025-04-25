@@ -1,0 +1,1 @@
+idf_component_register(SRCS "mi_led.c" INCLUDE_DIRS "include" PRIV_REQUIRES "led_strip" "mi_delay")
