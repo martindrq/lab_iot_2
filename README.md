@@ -1,4 +1,4 @@
-## Laboratorio 1
+## Laboratorio 2
 
 **Integrantes:** Nicolas Raposo, Martin Da Rosa y Rafael Durán.
 
