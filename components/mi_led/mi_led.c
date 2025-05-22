@@ -34,3 +34,10 @@ void one_blink(led_strip_t *strip){
     delay(250,'m');
 
 }
+void turn_led_on(led_strip_t *strip, int a, int b, int c){
+    strip->set_pixel(strip, 0, a, b, c);
+    strip->refresh(strip, 100);
+}
+void turn_led_off(led_strip_t *strip){
+    strip->clear(strip, 100);
+}
