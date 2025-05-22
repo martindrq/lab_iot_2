@@ -6,7 +6,6 @@ void testbench_miled(void);
 
 void app_main(void)
 {
-    testbench_miled(); //Esto se puede borrar
 
 }
 
