@@ -15,6 +15,7 @@ void app_main(void)
     //Iniciamos colores y brillo para el led
     float brightness = 1.0;
     int R = 255, G = 255, B = 255;
+    static int color_step = 0;
 
     //Iniciamos el touchpad
     touch_buttons_init();
@@ -33,7 +34,10 @@ void app_main(void)
                 }
                 break;
             case 1: //PLAY/PAUSE
-                
+                R = 0;
+                G = 255;
+                B = 0;
+                set_led_brightness(strip, R, G, B, brightness);
             break;
             case 2: //VOL_DOWN
                 if (brightness > 0.0){
@@ -42,7 +46,10 @@ void app_main(void)
                 }
                 break;
             case 3: //RECORD
-                turn_led_off(strip);
+                R = 0;
+                G = 0;
+                B = 255;
+                set_led_brightness(strip, R, G, B, brightness);
                 break;
             case 4: //PHOTO
                 R = 255;
@@ -51,7 +58,7 @@ void app_main(void)
                 set_led_brightness(strip, R, G, B, brightness);
                 break;
             case 5: //NETWORK
-                
+                turn_led_off(strip);
                 break;
             default:
                 break;
