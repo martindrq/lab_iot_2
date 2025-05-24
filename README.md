@@ -11,9 +11,9 @@ Para la primera parte hay que cargar en la placa el código de la rama Laborator
 la funcion buttons_for_led() tiene el loop infinito para usar los botones del touchpad
 y cambiar el estado del LED, los botones hacen lo siguiente:
 
-VOL_UP -> Sube brillo     (hay que mantener presionado)
-VOL_DOWN -> Baja brillo   (hay que mantener presionado)
-PHOTO -> Color rojo       (funciona con 1 toque)
-PLAY/PAUSE -> Color verde (funciona con 1 toque)
-RECORD -> Color azul      (funciona con 1 toque)
-NETWORK -> Apaga el LED   (funciona con 1 toque)
+VOL_UP -> Sube brillo     (hay que mantener presionado)<br />
+VOL_DOWN -> Baja brillo   (hay que mantener presionado)<br />
+PHOTO -> Color rojo       (funciona con 1 toque)<br />
+PLAY/PAUSE -> Color verde (funciona con 1 toque)<br />
+RECORD -> Color azul      (funciona con 1 toque)<br />
+NETWORK -> Apaga el LED   (funciona con 1 toque)<br />
