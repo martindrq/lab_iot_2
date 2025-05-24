@@ -1,6 +1,7 @@
 #include "mi_led.h"
 #include "esp_log.h"
 #include "mi_delay.h"
+#include "mi_touch.h"
 #include "driver/touch_pad.h"
 
 void get_state();
