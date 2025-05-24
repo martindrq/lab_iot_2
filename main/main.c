@@ -15,7 +15,7 @@ void app_main(void)
     //Iniciamos colores y brillo para el led
     float brightness = 1.0;
     int R = 255, G = 255, B = 255;
-    static int color_step = 0;
+
 
     //Iniciamos el touchpad
     touch_buttons_init();
@@ -63,21 +63,5 @@ void app_main(void)
             default:
                 break;
         }
-    }
-}
-
-void testbench_miled(void){
-    // a, b ,c son los numeros para RGB
-    int a = 255;
-    int b = 255;
-    int c = 255;
-    led_strip_t *strip;
-    led_rgb_init(&strip);
-    // Hacemos parpadear el led infinitamente con funciones propias
-    while(1){
-        turn_led_on(strip, a, b, c);
-        delay(500,'m');
-        turn_led_off(strip);
-        delay(500,'m');
     }
 }
