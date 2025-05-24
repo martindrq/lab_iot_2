@@ -15,7 +15,8 @@
         "cstdint": "c",
         "stdint.h": "c",
         "mi_delay.h": "c",
-        "touch_pad.h": "c"
+        "touch_pad.h": "c",
+        "mi_led.h": "c"
     },
     "idf.flashType": "UART",
     "idf.portWin": "COM12"

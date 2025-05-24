@@ -9,3 +9,6 @@ int touch_buttons_get_pressed(void);
 //    3 = RECORD
 //    4 = PHOTO
 //    5 = NETWORK
+
+void buttons_for_led(void);
+//--> Esta funcion usa un delay bloqueante de 50ms y es un loop infinito!
