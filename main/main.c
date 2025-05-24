@@ -4,84 +4,57 @@
 #include "mi_touch.h"
 #include "driver/touch_pad.h"
 
-void get_state();
-#define TOUCH_THRESHOLD 19000
-#define TOUCH_BUTTON_NUM 6
-int button_pressed;
-char STATE;
 led_strip_t *strip;
+int STATE;
 
-static const touch_pad_t buttons[TOUCH_BUTTON_NUM] = {
-    TOUCH_PAD_NUM1,   // TP5 - VOL_UP
-    TOUCH_PAD_NUM2,   // TP2 - PLAY/PAUSE
-    TOUCH_PAD_NUM3,   // TP6 - VOL_DOWN
-    TOUCH_PAD_NUM5,   // TP4 - RECORD
-    TOUCH_PAD_NUM6,   // TP1 - PHOTO
-    TOUCH_PAD_NUM11,  // TP3 - NETWORK
-};
 
 void app_main(void)
 {   
     //Iniciamos el led
     led_rgb_init(&strip);
+    //Iniciamos colores y brillo para el led
+    float brightness = 1.0;
+    int R = 255, G = 255, B = 255;
 
-    // Iniciamos el touchpad
-    touch_pad_init(); 
-    for (int i = 0; i < TOUCH_BUTTON_NUM; i++) {
-        // Configuramos todos los botones
-        touch_pad_config(buttons[i]);
-    }
-    touch_pad_set_fsm_mode(TOUCH_FSM_MODE_SW);
+    //Iniciamos el touchpad
+    touch_buttons_init();
 
-    while(1){
-        get_state();
-        
-        switch (STATE)
-        {
-            case 'A':
-                turn_led_on(strip, 255, 0, 0);
+    while (1){
+        delay(50,'m');
+        STATE = touch_buttons_get_pressed();
+        switch (STATE){
+            case -1: //No se presiona nada
+                
                 break;
-            case 'B':
+            case 0: //VOL_UP
+                if (brightness < 1.0){
+                    brightness += 0.1;
+                    set_led_brightness(strip, R, G, B, brightness);
+                }
+                break;
+            case 1: //PLAY/PAUSE
+                
+            break;
+            case 2: //VOL_DOWN
+                if (brightness > 0.0){
+                    brightness -= 0.1;
+                    set_led_brightness(strip, R, G, B, brightness);
+                }
+                break;
+            case 3: //RECORD
                 turn_led_off(strip);
                 break;
-            case 'X':
-                turn_led_on(strip, 255, 255, 255);
+            case 4: //PHOTO
+                R = 255;
+                G = 0;
+                B = 0;
+                set_led_brightness(strip, R, G, B, brightness);
+                break;
+            case 5: //NETWORK
+                
                 break;
             default:
-                turn_led_off(strip);
                 break;
-        }
-        
-    }
-}
-
-void get_state(void){
-
-    uint32_t value;
-
-    for (int i = 0; i < TOUCH_BUTTON_NUM; i++) {
-        touch_pad_sw_start();
-        delay(10,'m');
-        touch_pad_read_raw_data(buttons[i], &value);
-        printf("T%d: [%4"PRIu32"]\n", buttons[i], value);
-            if (value > TOUCH_THRESHOLD){
-              button_pressed = i;
-              switch (button_pressed)
-              {
-                case 0:
-                    STATE = 'A';
-                    printf("Boton VOL_UP presionado, STATE A\n");
-                    
-                    return;
-                case 2:
-                    STATE = 'B';
-                    printf("Boton VOL_DOWN presionado, STATE B\n");
-                    return;
-                default:
-                    STATE = 'X';
-                    printf("Boton %d presionado, parece no hacer nada\n", button_pressed);
-                    return;
-            }
         }
     }
 }

@@ -33,7 +33,7 @@ int touch_buttons_get_pressed(void){
         touch_pad_sw_start();
         delay(10, 'm');
         touch_pad_read_raw_data(buttons[i], &value);
-        printf("T%d: [%4"PRIu32"]\n", buttons[i], value);
+        //printf("T%d: [%4"PRIu32"]\n", buttons[i], value);
         if (value > TOUCH_THRESHOLD) {
             return i;
         }

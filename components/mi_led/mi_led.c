@@ -41,3 +41,16 @@ void turn_led_on(led_strip_t *strip, int a, int b, int c){
 void turn_led_off(led_strip_t *strip){
     strip->clear(strip, 100);
 }
+void set_led_brightness(led_strip_t *strip, int base_r, int base_g, int base_b, float brightness) {
+    if (brightness > 1.0){
+    brightness = 1.0;
+    }
+    if (brightness < 0.0){
+     brightness = 0.0;
+    }
+    int r = (int)(base_r * brightness);
+    int g = (int)(base_g * brightness);
+    int b = (int)(base_b * brightness);
+
+    turn_led_on(strip, r, g, b);
+}
