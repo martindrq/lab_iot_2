@@ -2,15 +2,13 @@
 #define MI_WEB_SERVER_H
 
 #include "esp_http_server.h"
-
-// Callback para controlar el LED
-typedef void (*led_control_callback_t)(int red, int green, int blue);
+#include "led_strip.h"
 
 /**
  * @brief Inicializa el servidor web HTTP
- * @param led_callback Función callback para controlar el LED RGB
+ * @param led_strip Puntero al LED strip configurado
  */
-httpd_handle_t init_web_server(led_control_callback_t led_callback);
+httpd_handle_t init_web_server(led_strip_t *led_strip);
 
 /**
  * @brief Detiene el servidor web HTTP

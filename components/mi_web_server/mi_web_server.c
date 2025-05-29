@@ -1,11 +1,11 @@
-
 #include "mi_web_server.h"
+#include "led_strip.h"  // Cambio: usar led_strip en lugar de mi_led.h
 #include "esp_log.h"
 #include "esp_http_server.h"
 #include <string.h>
 
 static const char *TAG = "WEB_SERVER";
-static led_control_callback_t g_led_callback = NULL;
+static led_strip_t *g_led_strip = NULL;  // Variable global para el LED strip
 
 // HTML embebido con botones para controlar el LED
 static const char* hello_html = 
@@ -59,13 +59,12 @@ static const char* hello_html =
         "<div class='container'>"
             "<h1>¡Hola Mundo!</h1>"
             "<div class='info'>"
-                "<p>Bienvenido al servidor web del ESP32 del grupo de:<br>"
-                "<b>Nicolás Raposo, Martin Da Rosa y Rafael Durán</b></p>"
+                "<p>Bienvenido al servidor web del ESP32 del grupo de:<br><b>Nicolás Raposo, Martin Da Rosa y Rafael Durán</b></p>"
                 "<p>Este mensaje se muestra desde el microcontrolador</p>"
                 "<p>Servidor funcionando correctamente ✓</p>"
             "</div>"
             "<div class='control-panel'>"
-                "<h2>Control del LED RGB</h2>"
+                "<h2>Control del LED Strip RGB</h2>"
                 "<p id='status'>LED: APAGADO</p>"
                 "<div>"
                     "<button class='led-button btn-red' onclick='controlLed(\"red\")'>ROJO</button>"
@@ -107,21 +106,38 @@ static esp_err_t led_handler(httpd_req_t *req)
         if (httpd_query_key_value(query, "color", color_param, sizeof(color_param)) == ESP_OK) {
             ESP_LOGI(TAG, "Color solicitado: %s", color_param);
             
-            // Controlar el LED según el color
-            if (g_led_callback != NULL) {
-                if (strcmp(color_param, "red") == 0) {
-                    g_led_callback(255, 0, 0);
-                } else if (strcmp(color_param, "green") == 0) {
-                    g_led_callback(0, 255, 0);
-                } else if (strcmp(color_param, "blue") == 0) {
-                    g_led_callback(0, 0, 255);
-                } else if (strcmp(color_param, "yellow") == 0) {
-                    g_led_callback(255, 255, 0);
-                } else if (strcmp(color_param, "off") == 0) {
-                    g_led_callback(0, 0, 0);
-                } else {
-                    ESP_LOGW(TAG, "Color no reconocido: %s", color_param);
+            // Controlar el LED strip según el color
+            if (strcmp(color_param, "red") == 0) {
+                ESP_LOGI(TAG, "LED Strip: ROJO");
+                if (g_led_strip != NULL) {
+                    g_led_strip->set_pixel(g_led_strip, 0, 255, 0, 0);  // R, G, B
+                    g_led_strip->refresh(g_led_strip, 100);
                 }
+            } else if (strcmp(color_param, "green") == 0) {
+                ESP_LOGI(TAG, "LED Strip: VERDE");
+                if (g_led_strip != NULL) {
+                    g_led_strip->set_pixel(g_led_strip, 0, 0, 255, 0);  // R, G, B
+                    g_led_strip->refresh(g_led_strip, 100);
+                }
+            } else if (strcmp(color_param, "blue") == 0) {
+                ESP_LOGI(TAG, "LED Strip: AZUL");
+                if (g_led_strip != NULL) {
+                    g_led_strip->set_pixel(g_led_strip, 0, 0, 0, 255);  // R, G, B
+                    g_led_strip->refresh(g_led_strip, 100);
+                }
+            } else if (strcmp(color_param, "yellow") == 0) {
+                ESP_LOGI(TAG, "LED Strip: AMARILLO");
+                if (g_led_strip != NULL) {
+                    g_led_strip->set_pixel(g_led_strip, 0, 255, 255, 0);  // R, G, B (Rojo + Verde = Amarillo)
+                    g_led_strip->refresh(g_led_strip, 100);
+                }
+            } else if (strcmp(color_param, "off") == 0) {
+                ESP_LOGI(TAG, "LED Strip: APAGADO");
+                if (g_led_strip != NULL) {
+                    g_led_strip->clear(g_led_strip, 100);
+                }
+            } else {
+                ESP_LOGW(TAG, "Color no reconocido: %s", color_param);
             }
             
             // Responder con éxito
@@ -156,10 +172,9 @@ static const httpd_uri_t led_uri = {
     .user_ctx  = NULL
 };
 
-httpd_handle_t init_web_server(led_control_callback_t led_callback)
+httpd_handle_t init_web_server(led_strip_t *led_strip)
 {
-    g_led_callback = led_callback;
-    
+    g_led_strip = led_strip;  // Guardar referencia al LED strip
     httpd_handle_t server = NULL;
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     
