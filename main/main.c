@@ -6,16 +6,16 @@
 #include "led_strip.h"
 #include "esp_log.h"
 
-static const char *TAG = "MAIN";
 
 void app_main(void)
 {
-    //Función para la parte 1:
-    //buttons_for_leds();
+    //--> Función para la parte 1:
+    //buttons_for_led();
 
-    //Función para la parte 2:
-    // connect_wifi_ap("SSID", "Contraseña");
+    //-->Funciones para la parte 2:
+    //init_wifi_ap("SSID", "Contraseña"); // Se crea una red
+    //connect_wifi_ap("SSID", "Contraseña"); // Se conecta a una red
    
     //Función para la parte 3:
-    init_web_services();
+    //init_web_services();
 }
