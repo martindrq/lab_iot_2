@@ -105,7 +105,6 @@ void app_main(void)
                     break;
             }
         }
-        
         // Delay de 1 segundo usando tu función delay personalizada
         delay(1000, 'm'); // 1000 milisegundos = 1 segundo
     }

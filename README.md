@@ -49,22 +49,6 @@ Contraseña: 12345678<br />
 
 Abrir navegador en: http://192.168.4.1<br />
 
-4. Funcionalidades Disponibles<br />
-
-Control de colores individuales (RGB)<br />
-Efectos predefinidos<br />
-Encendido/apagado del LED strip<br />
-Ajuste de brillo<br />
-
-Estructura del Proyecto<br />
-components/<br />
-├── led_strip/          # Driver personalizado para WS2812<br />
-├── mi_web_server/      # Servidor HTTP con endpoints<br />
-├── mi_wifi_ap/         # Configuración WiFi Access Point<br />
-├── mi_led/             # Funciones auxiliares LED<br />
-├── mi_delay/           # Utilidades de delay<br />
-└── mi_touch/           # Driver touchpad<br />
-
 **API Endpoints**<br />
 
 GET/Página principal con interfaz de control<br />
@@ -80,23 +64,3 @@ Comentar esta línea:<br />
 
 // Descomentar y configurar:<br />
 connect_wifi_ap("NombreDeRed", "ContraseñaDeRed");<br />
-
-**Especificaciones Técnicas**<br />
-
-Utiliza driver RMT para comunicación con LED strip WS2812<br />
-Implementación compatible con ESP-IDF v5.4.1<br />
-Optimizado para ESP32-S2 (placa Kaluga)<br />
-Manejo de errores y logging detallado<br />
-
-**Troubleshooting**<br />
-Si hay problemas de compilación, verificar:<br />
-
-Dependencias: Revisar CMakeLists.txt de cada componente<br />
-Versión ESP-IDF: Se recomienda v5.4.1<br />
-Configuración de pines: Verificar según la placa utilizada<br />
-
-**Recursos Adicionales** <br />
-
-Documentación ESP-IDF<br />
-Especificaciones WS2812<br />
-ESP32-S2 Kaluga Kit<br />
