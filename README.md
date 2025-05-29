@@ -22,19 +22,7 @@ NETWORK -> Apaga el LED   (funciona con 1 toque)<br />
 
 ## Tercera Parte: Servidor Web con Control de LED Strip
 **Descripción General**<br />
-Esta parte implementa un servidor web que permite controlar un LED strip WS2812 a través de una interfaz web.
-
-**Características Principales**<br />
-
-**Servidor Web HTTP:** Crea un Access Point WiFi con credenciales predefinidas<br />
-**Control de LED Strip:** Interfaz web para controlar colores y efectos del LED strip<br />
-**API REST:** Endpoints para control programático del LED<br />
-**Compatibilidad:** Funciona con LED strips WS2812/NeoPixel<br />
-
-**Configuración de Hardware**<br />
-
-**LED Strip:** Conectado al pin GPIO_NUM_45 (configurado por defecto en la placa Kaluga)<br />
-WiFi: Modo Access Point habilitado<br />
+Esta parte implementa un servidor web que permite controlar el LED de la placa a través de una interfaz web.
 
 Instrucciones de Uso<br />
 1. Compilar y Flashear el Código<br />
