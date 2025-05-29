@@ -24,11 +24,15 @@ NETWORK -> Apaga el LED   (funciona con 1 toque)<br />
 Esta parte del laboratorio implementa un Access Point (AP) que permite a los usuarios conectarse a la red WiFi creada por el ESP32.
 Tambien se proporciona otro metodo capaz de conectarse a una red WiFi existente.<br /><br />
 **Instrucciones de Uso**<br />
+Incluír la librería:<br />
+```c
+#include "mi_wifi_ap.h"
+```
 Iniciar el Access Point:<br />
 ```c
 init_wifi_ap("ESP32-WebServer", "12345678");
 ```
-Eventos utiles asociados al AP:<br />
+Eventos útiles asociados al AP:<br />
 - WIFI_EVENT_AP_START: Se emite cuando el AP se inicia correctamente.
 - WIFI_EVENT_AP_STACONNECTED: Se emite cuando un cliente se conecta al AP.
 - WIFI_EVENT_AP_STADISCONNECTED: Se emite cuando un cliente se desconecta del AP.
@@ -36,7 +40,7 @@ Conectar a una Red WiFi Existente<br />
 ```c
 connect_wifi_ap("NombreDeRed", "ContraseñaDeRed");
 ```
-Eventos utiles asociados al STA:<br />
+Eventos útiles asociados al STA:<br />
 - WIFI_EVENT_STA_START: Se emite cuando el ESP32 comienza a buscar redes WiFi.
 - WIFI_EVENT_STA_CONNECTED: Se emite cuando el ESP32 se conecta a la red WiFi.
 - WIFI_EVENT_STA_DISCONNECTED: Se emite cuando el ESP32 pierde la conexión a la red WiFi.
