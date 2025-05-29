@@ -73,7 +73,10 @@ POST/led/powerEncender/apagar LED<br />
 
 Para conectar a una red existente en lugar de crear un Access Point, modificar en main.c:<br />
 Comentar esta línea:<br />
-// init_wifi_ap("ESP32-WebServer", "12345678");<br />
-
+```c
+init_wifi_ap("ESP32-WebServer", "12345678");<br />
+```
 // Descomentar y configurar:<br />
+```c
 connect_wifi_ap("NombreDeRed", "ContraseñaDeRed");<br />
+```
