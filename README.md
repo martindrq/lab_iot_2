@@ -76,7 +76,7 @@ Comentar esta línea:<br />
 ```c
 init_wifi_ap("ESP32-WebServer", "12345678");<br />
 ```
-// Descomentar y configurar:<br />
+Descomentar y configurar:<br />
 ```c
 connect_wifi_ap("NombreDeRed", "ContraseñaDeRed");<br />
 ```
