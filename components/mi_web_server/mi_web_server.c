@@ -1,8 +1,10 @@
 #include "mi_web_server.h"
-#include "led_strip.h"  // Cambio: usar led_strip en lugar de mi_led.h
+#include "led_strip.h"
 #include "esp_log.h"
 #include "esp_http_server.h"
 #include <string.h>
+#include "mi_wifi_ap.h"
+#include "mi_delay.h"
 
 static const char *TAG = "WEB_SERVER";
 static led_strip_t *g_led_strip = NULL;  // Variable global para el LED strip
@@ -211,5 +213,49 @@ void stop_web_server(httpd_handle_t server)
     if (server != NULL) {
         httpd_stop(server);
         ESP_LOGI(TAG, "Servidor web detenido");
+    }
+}
+
+void init_web_services(){
+
+    ESP_LOGI(TAG, "Iniciando aplicación ESP32 Web Server");
+    
+    led_strip_t *led_strip = NULL;
+    ESP_ERROR_CHECK(led_rgb_init(&led_strip));
+    
+    if (!led_strip) {
+        ESP_LOGE(TAG, "Error al crear el LED strip");
+        return;
+    }
+    
+    ESP_LOGI(TAG, "LED strip configurado correctamente");
+    
+    // Opción 1: Crear Access Point
+    ESP_LOGI(TAG, "Configurando WiFi en modo Access Point");
+    init_wifi_ap("ESP32-WebServer", "12345678");
+    
+    // Opción 2: Conectar a red existente (comentar opción 1 y descomentar estas lineas para usar)
+    // ESP_LOGI(TAG, "Conectando a red WiFi existente");
+    // connect_wifi_ap("NombreDeRed", "ContraseñaDeRed");
+    
+    // Esperar un momento para que se establezca la conexión WiFi usando tu función delay
+    delay(3000, 'm');
+    
+    // Iniciar servidor web con el LED strip
+    httpd_handle_t server = init_web_server(led_strip);
+    
+    if (server != NULL) {
+        ESP_LOGI(TAG, "===========================================");
+        ESP_LOGI(TAG, "Servidor web iniciado correctamente");
+        ESP_LOGI(TAG, "Conéctate a la red WiFi: ESP32-WebServer");
+        ESP_LOGI(TAG, "Contraseña: 12345678");
+        ESP_LOGI(TAG, "Luego abre http://192.168.4.1 en tu navegador");
+        ESP_LOGI(TAG, "Funcionalidades disponibles:");
+        ESP_LOGI(TAG, "- Página principal: http://192.168.4.1/");
+        ESP_LOGI(TAG, "- Control LED Strip: Botones en la página web");
+        ESP_LOGI(TAG, "===========================================");
+    } else {
+        ESP_LOGE(TAG, "Error al iniciar el servidor web");
+        return;
     }
 }

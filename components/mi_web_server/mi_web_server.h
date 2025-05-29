@@ -15,4 +15,6 @@ httpd_handle_t init_web_server(led_strip_t *led_strip);
  */
 void stop_web_server(httpd_handle_t server);
 
+void init_web_services();
+
 #endif // MI_WEB_SERVER_H
