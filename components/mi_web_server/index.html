@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>ESP32 Web Server</title>
+        <meta charset='UTF-8'>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 40px; }
+            h1 { color: #2E86AB; }
+            .container { max-width: 600px; margin: 0 auto; }
+            .info { background-color: #f0f8ff; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+            .control-panel { background-color: #f9f9f9; padding: 20px; border-radius: 5px; text-align: center; }
+            .led-button {
+                padding: 15px 30px;
+                margin: 10px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                color: white;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+                transition: transform 0.1s;
+            }
+            .led-button:hover { transform: scale(1.05); }
+            .led-button:active { transform: scale(0.95); }
+            .btn-red { background-color: #dc3545; }
+            .btn-green { background-color: #28a745; }
+            .btn-blue { background-color: #007bff; }
+            .btn-yellow { background-color: #ffc107; color: black; }
+            .btn-off { background-color: #6c757d; }
+        </style>
+        <script>
+            function controlLed(color) {
+                fetch('/led?color=' + color)
+                .then(response => response.text())
+                .then(data => {
+                    console.log('LED cambiado a: ' + color);
+                    document.getElementById('status').innerHTML = 'LED: ' + color.toUpperCase();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('status').innerHTML = 'Error al cambiar LED';
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class='container'>
+            <h1>¡Hola Mundo!</h1>
+            <div class='info'>
+                <p>Bienvenido al servidor web del ESP32 del grupo de:<br><b>Nicolás Raposo, Martin Da Rosa y Rafael Durán</b></p>
+                <p>Este mensaje se muestra desde el microcontrolador</p>
+                <p>Servidor funcionando correctamente ✓</p>
+            </div>
+            <div class='control-panel'>
+                <h2>Control del LED Strip RGB</h2>
+                <p id='status'>LED: APAGADO</p>
+                <div>
+                    <button class='led-button btn-red' onclick='controlLed("red")'>ROJO</button>
+                    <button class='led-button btn-green' onclick='controlLed("green")'>VERDE</button>
+                    <button class='led-button btn-blue' onclick='controlLed("blue")'>AZUL</button>
+                    <button class='led-button btn-yellow' onclick='controlLed("yellow")'>AMARILLO</button>
+                    <button class='led-button btn-off' onclick='controlLed("off")'>APAGAR</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
