@@ -8,9 +8,7 @@ Es posible que sea necesario modificar los archivos de la carpeta .vscode para a
 ## Primera Parte: Laboratorio_2a
 
 **Descripción:**<br />
-Para la primera parte, cargar en la placa el código de la rama Laboratorio_2a. La función buttons_for_led() contiene el loop infinito para usar los botones del touchpad y cambiar el estado del LED.
-Funcionalidad de Botones
-Para la primera parte hay que cargar en la placa el código de la rama Laboratorio_2a, la funcion buttons_for_led() tiene el loop infinito para usar los botones del touchpad y cambiar el estado del LED, los botones hacen lo siguiente:
+Para la primera parte se utiliza la función buttons_for_led() contiene el loop infinito para usar los botones del touchpad y cambiar el estado del LED (color y brillo), los botones hacen lo siguiente:
 
 VOL_UP -> Sube brillo     (hay que mantener presionado)<br />
 VOL_DOWN -> Baja brillo   (hay que mantener presionado)<br />
